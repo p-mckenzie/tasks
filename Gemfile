@@ -24,6 +24,8 @@ gem 'jbuilder', '~> 2.7'
 
 # for secure passwords
 gem 'devise'
+# for UI
+gem "font-awesome-rails"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
