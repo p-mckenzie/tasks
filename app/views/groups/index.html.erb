@@ -1,29 +1,29 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Groups</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @groups.each do |group| %>
+<div class="table-responsive text-center">
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= group.title %></td>
-        <td><%= group.description %></td>
-        <td><%= link_to 'Show', group %></td>
-        <td><%= link_to 'Edit', edit_group_path(group) %></td>
-        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Title</th>
+        <th>Description</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <% @groups.each do |group| %>
+        <tr>
+          <td><%= group.title %></td>
+          <td><%= group.description %></td>
+          <td><%= link_to 'Show', group %></td>
+          <td><%= link_to 'Edit', edit_group_path(group) %></td>
+          <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Create a new group', new_group_path %>
 <br>
-
-<%= link_to 'New Group', new_group_path %>
+<%= link_to 'Join another group', join_group_path %>

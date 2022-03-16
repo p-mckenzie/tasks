@@ -1,5 +1,15 @@
-<h1>New User Group Assignment</h1>
+<h3>Enter group information to join:</h3>
+<%= form_with url: join_group_path, method: :post do |form| %>
 
-<%= render 'form', user_group_assignment: @user_group_assignment %>
+  <div class="field">
+    <%= form.text_field :title, placeholder: "Group name" %>
+  </div>
 
-<%= link_to 'Back', user_group_assignments_path %>
+  <div class="field">
+    <%= form.text_field :password, placeholder: "Security code" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

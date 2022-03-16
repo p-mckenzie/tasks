@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   root to: 'home#index'
   resources :groups
   resources :users, only: [:edit]
-  match '/join_group' => 'groups#add', via: [:get, :post]
+  get '/join_group' => 'user_group_assignments#new'
+  post '/join_group' => 'user_group_assignments#create'
 end

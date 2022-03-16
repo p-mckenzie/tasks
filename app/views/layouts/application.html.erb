@@ -13,13 +13,11 @@
   <body>
     <%= render 'layouts/nav' %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="container">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
 
-    <%= yield %>
-
-    <% if user_signed_in? %>
-      <%= link_to("Logout", destroy_user_session_path, method: :delete) %>
-    <% end if %>
+      <%= yield %>
+    </div>
   </body>
 </html>
