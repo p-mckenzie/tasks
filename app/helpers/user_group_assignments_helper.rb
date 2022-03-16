@@ -1,0 +1,2 @@
+module UserGroupAssignmentsHelper
+end

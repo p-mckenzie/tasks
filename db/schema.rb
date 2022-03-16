@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_205608) do
+ActiveRecord::Schema.define(version: 2022_03_16_141810) do
+
+  create_table "groups", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_group_assignments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_user_group_assignments_on_group_id"
+    t.index ["user_id"], name: "index_user_group_assignments_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
@@ -26,4 +42,6 @@ ActiveRecord::Schema.define(version: 2022_03_09_205608) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "user_group_assignments", "groups"
+  add_foreign_key "user_group_assignments", "users"
 end
