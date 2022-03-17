@@ -1,5 +1,5 @@
 class UserGroupAssignmentsController < ApplicationController
-  before_action :set_user_group_assignment, only: %i[ show edit update destroy ]
+  before_action :set_user_group_assignment, only: %i[ show edit update ]
 
   def new
   end
@@ -20,5 +20,15 @@ class UserGroupAssignmentsController < ApplicationController
       flash[:alert] = 'Unable to create group membership'
       redirect_to groups_path
     end
+  end
+
+  def destroy
+    assignment = UserGroupAssignment.find(params[:id])
+    if assignment.delete
+      flash[:alert] = 'Successfully removed user from group'
+    else
+      flash[:alert] = 'Something went wrong'
+    end
+    redirect_to groups_path
   end
 end

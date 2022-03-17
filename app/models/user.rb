@@ -9,4 +9,9 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def is_admin?(group)
+    mapping = self.user_group_assignments.where({group_id: group.id}).first
+    return mapping ? mapping.admin : false
+  end
 end

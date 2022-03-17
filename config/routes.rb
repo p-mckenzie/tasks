@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :users, only: [:edit]
   get '/join_group' => 'user_group_assignments#new'
   post '/join_group' => 'user_group_assignments#create'
+  delete '/leave_group' => 'user_group_assignments#destroy'
 end

@@ -1,0 +1,21 @@
+<div class="table-responsive text-center">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% group.user_group_assignments.each do |assignment| %>
+        <tr>
+          <td><%= assignment.user.full_name %></td>
+          <td>
+            <%= button_to 'Remove from group', leave_group_path(id: assignment.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

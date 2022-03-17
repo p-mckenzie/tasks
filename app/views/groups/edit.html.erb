@@ -2,5 +2,13 @@
 
 <%= render 'form', group: @group %>
 
-<%= link_to 'Show', @group %> |
-<%= link_to 'Back', groups_path %>
+<%= render 'members', group: @group %>
+
+<button type="button" class="btn btn-warning">
+  <%= link_to 'Destroy', @group, method: :delete, data: { confirm: 'Are you sure?' } %>
+</button>
+
+<div>
+  <%= link_to 'Show', @group %> |
+  <%= link_to 'Back', groups_path %>
+</div>
