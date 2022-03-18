@@ -10,18 +10,29 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
+<table class="col-md-3">
+  <tr class="field">
+    <td>
     <%= form.label :title %>
+    </td>
+    <td>
     <%= form.text_field :title %>
-  </div>
+    </td>
+  </tr>
 
-  <div class="field">
+  <tr class="field">
+    <td>
     <%= form.label :description %>
+    </td>
+    <td>
     <%= form.text_area :description %>
-  </div>
+    </td>
+  </tr>
 
-  <div class="actions">
+  <tr class="actions">
+    <td>
     <%= form.submit 'Submit', :class => 'btn btn-primary' %>
-  </div>
+    </td>
+  </tr>
+</table>
 <% end %>

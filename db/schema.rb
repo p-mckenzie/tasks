@@ -44,5 +44,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_142049) do
   end
 
   add_foreign_key "user_group_assignments", "groups"
+  add_foreign_key "user_group_assignments", "groups", on_delete: :cascade
   add_foreign_key "user_group_assignments", "users"
+  add_foreign_key "user_group_assignments", "users", on_delete: :cascade
 end

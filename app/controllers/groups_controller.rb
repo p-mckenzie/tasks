@@ -22,9 +22,10 @@ class GroupsController < ApplicationController
   # POST /groups or /groups.json
   def create
     @group = Group.new(group_params)
+    connection = UserGroupAssignment.new(group: @group, user: current_user, admin: true)
 
     respond_to do |format|
-      if @group.save
+      if @group.save and connection.save
         format.html { redirect_to group_url(@group), notice: "Group was successfully created." }
         format.json { render :show, status: :created, location: @group }
       else

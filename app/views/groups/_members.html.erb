@@ -3,7 +3,9 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th colspan="2"></th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -11,6 +13,8 @@
       <% group.user_group_assignments.each do |assignment| %>
         <tr>
           <td><%= assignment.user.full_name %></td>
+          <td><%= assignment.user.email %></td>
+          <td><%= assignment.user.is_admin?(group) ? 'Admin' : 'Member'%></td>
           <td>
             <%= button_to 'Remove from group', leave_group_path(id: assignment.id), method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
@@ -19,3 +23,16 @@
     </tbody>
   </table>
 </div>
+
+<h4>Invite a new member to the group:</h4>
+<%= form_with model: group, url: join_group_path, method: :post do |form| %>
+  <%= form.hidden_field :id %>
+
+  <div class="field">
+    <%= form.text_field :email, placeholder: "User's email" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Send invite' %>
+  </div>
+<% end %>

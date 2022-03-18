@@ -1,11 +1,14 @@
-<h1>Editing Group</h1>
+<h1>Manage membership</h1>
+<%= render 'members', group: @group %>
+<hr>
 
+<h1>Edit group info</h1>
 <%= render 'form', group: @group %>
 
-<%= render 'members', group: @group %>
+<hr>
 
 <button type="button" class="btn btn-warning">
-  <%= link_to 'Destroy', @group, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Delete group', @group, method: :delete, data: { confirm: 'Are you sure? This will also delete all related tasks & role assignments' } %>
 </button>
 
 <div>
