@@ -10,13 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_142049) do
+ActiveRecord::Schema.define(version: 2022_03_18_160455) do
 
   create_table "groups", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "task_instances", force: :cascade do |t|
+    t.text "notes"
+    t.date "due_date", null: false
+    t.boolean "complete", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "task_id", null: false
+    t.index ["task_id"], name: "index_task_instances_on_task_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.date "due_date", null: false
+    t.boolean "is_recurring", default: false
+    t.string "recurrence_type"
+    t.integer "separation"
+    t.integer "day_of_week"
+    t.integer "day_of_month"
+    t.integer "month_of_year"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "group_id", null: false
+    t.index ["group_id"], name: "index_tasks_on_group_id"
   end
 
   create_table "user_group_assignments", force: :cascade do |t|
@@ -43,6 +69,10 @@ ActiveRecord::Schema.define(version: 2022_03_17_142049) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "task_instances", "tasks"
+  add_foreign_key "task_instances", "tasks", on_delete: :cascade
+  add_foreign_key "tasks", "groups"
+  add_foreign_key "tasks", "groups", on_delete: :cascade
   add_foreign_key "user_group_assignments", "groups"
   add_foreign_key "user_group_assignments", "groups", on_delete: :cascade
   add_foreign_key "user_group_assignments", "users"
