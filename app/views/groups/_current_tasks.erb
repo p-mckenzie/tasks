@@ -1,0 +1,25 @@
+<div class="table-responsive text-center">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Notes</th>
+        <th>Due date</th>
+        <th>Assignee</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% group.current_tasks.each do |instance| %>
+        <tr>
+          <td><%= instance.task.title %></td>
+          <td><%= instance.task.description %></td>
+          <td><%= instance.notes %></td>
+          <td><%= instance.due_date %></td>
+          <td><%= instance.user %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

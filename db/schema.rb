@@ -26,7 +26,9 @@ ActiveRecord::Schema.define(version: 2022_03_18_160455) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "task_id", null: false
+    t.integer "user_id"
     t.index ["task_id"], name: "index_task_instances_on_task_id"
+    t.index ["user_id"], name: "index_task_instances_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -36,9 +38,6 @@ ActiveRecord::Schema.define(version: 2022_03_18_160455) do
     t.boolean "is_recurring", default: false
     t.string "recurrence_type"
     t.integer "separation"
-    t.integer "day_of_week"
-    t.integer "day_of_month"
-    t.integer "month_of_year"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "group_id", null: false
@@ -71,6 +70,7 @@ ActiveRecord::Schema.define(version: 2022_03_18_160455) do
 
   add_foreign_key "task_instances", "tasks"
   add_foreign_key "task_instances", "tasks", on_delete: :cascade
+  add_foreign_key "task_instances", "users"
   add_foreign_key "tasks", "groups"
   add_foreign_key "tasks", "groups", on_delete: :cascade
   add_foreign_key "user_group_assignments", "groups"

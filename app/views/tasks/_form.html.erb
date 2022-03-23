@@ -30,6 +30,15 @@
     </td>
   </tr>
 
+  <tr class="field">
+    <td>
+    <%= form.label :recurrence_type %>
+    </td>
+    <td>
+    <%= form.select :recurrence_type, options_for_select([["None", ""], "Daily", "Weekly", "Monthly", "Yearly"]), :class => 'genForm_dropBox' %>
+    </td>
+  </tr>
+
   <div class="actions">
     <%= form.submit %>
   </div>

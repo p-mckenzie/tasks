@@ -10,5 +10,10 @@
   <%= @group.description %>
 </p>
 
+<%= render 'current_tasks', group: @group %>
+
+<%= link_to 'New Task', new_group_task_path(group_id: @group.id) %>
+<br><br>
+
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>

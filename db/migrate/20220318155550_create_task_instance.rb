@@ -8,6 +8,7 @@ class CreateTaskInstance < ActiveRecord::Migration[6.1]
       t.timestamps
 
       t.references :task, null: false, foreign_key: true
+      t.references :user, null: true, foreign_key: true
     end
 
   end
