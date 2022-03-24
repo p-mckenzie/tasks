@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :groups do
-    resources :tasks
+    resources :tasks, except: [:index]
   end
 
   resources :users, only: [:edit]

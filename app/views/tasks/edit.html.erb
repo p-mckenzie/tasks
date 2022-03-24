@@ -3,4 +3,4 @@
 <%= render 'form', task: @task %>
 
 <%= link_to 'Show', group_task_path(id: @task.id) %> |
-<%= link_to 'Back', group_tasks_path %>
+<%= link_to 'Back', group_path(@task.group) %>

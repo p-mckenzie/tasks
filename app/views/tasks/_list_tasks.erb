@@ -7,17 +7,27 @@
         <th>Notes</th>
         <th>Due date</th>
         <th>Assignee</th>
+        <th>Done?</th>
+        <th>Edit</th>
       </tr>
     </thead>
 
     <tbody>
-      <% group.current_tasks.each do |instance| %>
+      <% tasks.each do |instance| %>
         <tr>
           <td><%= instance.task.title %></td>
           <td><%= instance.task.description %></td>
           <td><%= instance.notes %></td>
           <td><%= instance.due_date %></td>
           <td><%= instance.user %></td>
+          <td>
+            <%= form_for(edit_group_task_path(instance), :method => :put, :remote => true) do |f| %>
+              <div class="field">
+                <%= f.check_box :complete, :onchange => ("this.form.submit()") %> <br />
+              </div>
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_group_task_path(group_id:instance.group.id, id:instance.task.id) %></td>
         </tr>
       <% end %>
     </tbody>

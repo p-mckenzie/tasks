@@ -10,10 +10,15 @@
   <%= @group.description %>
 </p>
 
-<%= render 'current_tasks', group: @group %>
+<h2>Outstanding tasks:</h2>
+<%= render 'tasks/list_tasks', tasks: @group.current_tasks %>
+
+<br><br>
 
 <%= link_to 'New Task', new_group_task_path(group_id: @group.id) %>
 <br><br>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
+<% if current_user.is_admin?(@group) %>
+  <%= link_to 'Admin', edit_group_path(@group) %> |
+<% end %>
 <%= link_to 'Back', groups_path %>

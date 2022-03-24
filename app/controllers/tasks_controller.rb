@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :set_group, only: %i[ new edit show ]
 
   # GET /tasks or /tasks.json
   def index
@@ -12,7 +13,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    @task = Task.new(group: @group)
   end
 
   # GET /tasks/1/edit
@@ -53,7 +54,7 @@ class TasksController < ApplicationController
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to group_tasks_path, notice: "Task was successfully destroyed." }
+      format.html { redirect_to group_path, notice: "Task was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -64,8 +65,12 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
+    def set_group
+      @group = Group.find(params[:group_id])
+    end
+
     # Only allow a list of trusted parameters through.
     def task_params
-      params.permit(:group_id).merge(params.require(:task).permit(:title, :description, :due_date, :recurrence_type))
+      params.require(:task).permit(:title, :description, :due_date, :recurrence_type)
     end
 end
