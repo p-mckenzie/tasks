@@ -1,3 +1,30 @@
+<script type="text/javascript">
+  $(function () {
+    $("#task_recurrence_type").change(function () {
+
+        const category = $(this).val().toLowerCase();
+
+        $('.test').children().css('background-color', 'red');
+
+        if (category != "") {
+
+          $(".hide").show();
+          $(".hide").children().show();
+          const toShow = '.'+category;
+
+          console.log(toShow);
+
+          $('.hide').children().not($(toShow)).hide();
+          $('.always').show();
+
+          $('.separation_unit').text(category.substr(0, category.length-2).replace('i', 'y')+'s');
+        } else {
+          $(".hide").hide();
+        }
+    });
+  });
+</script>
+
 <%= form_with(model: task, url: group_tasks_path) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
@@ -21,23 +48,38 @@
     <%= form.text_area :description %>
   </div>
 
-  <tr class="field">
-    <td>
+  <div class="field">
     <%= form.label :due_date %>
-    </td>
-    <td>
     <%= form.date_field :due_date, :value => Time.now.strftime('%Y-%m-%d') %>
-    </td>
-  </tr>
+  </div>
 
-  <tr class="field">
-    <td>
+  <div class="field">
     <%= form.label :recurrence_type %>
-    </td>
-    <td>
     <%= form.select :recurrence_type, options_for_select([["None", ""], "Daily", "Weekly", "Monthly", "Yearly"]), :class => 'genForm_dropBox' %>
-    </td>
-  </tr>
+  </div>
+
+  <div class="hide" style="display:none">
+    <div class="field always">
+      <%= form.label "Repeat every" %>
+      <%= form.number_field :separation, :value => 1 %>
+      <%= form.label 'daily', :class => 'separation_unit' %>
+    </div>
+
+    <div class="field weekly">
+      <%= form.label :day_of_week %>
+      <%= form.select :day_of_week, options_for_select(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]), :class => 'genForm_dropBox' %>
+    </div>
+
+    <div class="field monthly yearly">
+      <%= form.label :day_of_month %>
+      <%= form.number_field :day_of_month, in: 1..31 %>
+    </div>
+
+    <div class="field yearly">
+      <%= form.label :month_of_year %>
+      <%= form.number_field :month_of_year, in: 1..12 %>
+    </div>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
