@@ -6,8 +6,11 @@ class CreateTasks < ActiveRecord::Migration[6.1]
       t.date :due_date, null: false
 
       t.boolean :is_recurring, default: false
-      t.string :recurrence_type
+      t.string :recurrence_type, default: ""
       t.integer :separation
+      t.integer :day_of_week
+      t.integer :day_of_month
+      t.integer :month_of_year
 
       t.timestamps
 

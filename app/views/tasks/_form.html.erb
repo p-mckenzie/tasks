@@ -1,25 +1,20 @@
 <script type="text/javascript">
   $(function () {
     $("#task_recurrence_type").change(function () {
-
         const category = $(this).val().toLowerCase();
-
-        $('.test').children().css('background-color', 'red');
-
         if (category != "") {
 
-          $(".hide").show();
           $(".hide").children().show();
           const toShow = '.'+category;
-
-          console.log(toShow);
 
           $('.hide').children().not($(toShow)).hide();
           $('.always').show();
 
           $('.separation_unit').text(category.substr(0, category.length-2).replace('i', 'y')+'s');
+          $('.due_date').text("Starting on");
         } else {
-          $(".hide").hide();
+          $(".hide").children().hide();
+          $('.due_date').text("Due on");
         }
     });
   });
@@ -49,33 +44,33 @@
   </div>
 
   <div class="field">
-    <%= form.label :due_date %>
-    <%= form.date_field :due_date, :value => Time.now.strftime('%Y-%m-%d') %>
-  </div>
-
-  <div class="field">
     <%= form.label :recurrence_type %>
     <%= form.select :recurrence_type, options_for_select([["None", ""], "Daily", "Weekly", "Monthly", "Yearly"]), :class => 'genForm_dropBox' %>
   </div>
 
-  <div class="hide" style="display:none">
-    <div class="field always">
+  <div class="field">
+    <%= form.label 'Due on', :class => 'due_date' %>
+    <%= form.date_field :due_date, :value => Time.now.strftime('%Y-%m-%d') %>
+  </div>
+  
+  <div class="hide">
+    <div class="field always" style="display:none">
       <%= form.label "Repeat every" %>
       <%= form.number_field :separation, :value => 1 %>
       <%= form.label 'daily', :class => 'separation_unit' %>
     </div>
 
-    <div class="field weekly">
+    <div class="field weekly" style="display:none">
       <%= form.label :day_of_week %>
-      <%= form.select :day_of_week, options_for_select(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]), :class => 'genForm_dropBox' %>
+      <%= form.select :day_of_week, options_for_select([["Monday", 1], ["Tuesday", 2], ["Wednesday", 3], ["Thursday", 4], ["Friday", 5], ["Saturday", 6], ["Sunday", 7]]), :class => 'genForm_dropBox' %>
     </div>
 
-    <div class="field monthly yearly">
+    <div class="field monthly yearly" style="display:none">
       <%= form.label :day_of_month %>
       <%= form.number_field :day_of_month, in: 1..31 %>
     </div>
 
-    <div class="field yearly">
+    <div class="field yearly" style="display:none">
       <%= form.label :month_of_year %>
       <%= form.number_field :month_of_year, in: 1..12 %>
     </div>

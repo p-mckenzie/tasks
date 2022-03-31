@@ -22,8 +22,7 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
-    @task.next_task_instance
+    @task = Task.create(task_params)
 
     respond_to do |format|
       if @task.save

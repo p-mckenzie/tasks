@@ -3,8 +3,6 @@
     <thead>
       <tr>
         <th>Title</th>
-        <th>Description</th>
-        <th>Notes</th>
         <th>Due date</th>
         <th>Assignee</th>
         <th>Done?</th>
@@ -15,9 +13,7 @@
     <tbody>
       <% tasks.each do |instance| %>
         <tr>
-          <td><%= instance.task.title %></td>
-          <td><%= instance.task.description %></td>
-          <td><%= instance.notes %></td>
+          <td><%= link_to "#{instance.task.title}", group_task_path(instance.task) %></td>
           <td><%= instance.due_date %></td>
           <td><%= instance.user %></td>
           <td>
