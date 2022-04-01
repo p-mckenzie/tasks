@@ -4,6 +4,7 @@
       <tr>
         <th>Title</th>
         <th>Due date</th>
+        <th>Recurrence</th>
         <th>Assignee</th>
         <th>Done?</th>
         <th>Edit</th>
@@ -15,6 +16,7 @@
         <tr>
           <td><%= link_to "#{instance.task.title}", group_task_path(instance.task) %></td>
           <td><%= instance.due_date %></td>
+          <td><%= instance.task.recurrence_type %></td>
           <td><%= instance.user %></td>
           <td>
             <%= form_for(edit_group_task_path(instance), :method => :put, :remote => true) do |f| %>

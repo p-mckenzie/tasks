@@ -1,13 +1,15 @@
 class Task < ApplicationRecord
   belongs_to :group
   has_many :task_instances
+  validates :title, presence: true
 
-  before_create :next_task_instance
+  before_save :next_task_instance
 
   private
   def next_task_instance
     if self.task_instances.empty? || (current_instance.completed and self.is_recurring)
-      self.task_instances << next_instance
+      holder = next_instance
+      self.task_instances << holder
     end
   end
 
@@ -17,20 +19,17 @@ class Task < ApplicationRecord
 
   def next_instance
     case self.recurrence_type
-    when ""
+    when "" || nil
       TaskInstance.new(due_date: self.due_date)
-    when "daily"
-      TaskInstance.new(due_date: (current_instance.due_date || self.due_date) + (self.separation || 0))
-    when "weekly"
-      TaskInstance.new(due_date: ((7-(current_instance.due_date || self.due_date).wday) - (7-self.day_of_week))%7 + 7*self.separation )
-    when "monthly"
-      #TODO
-      TaskInstance.new(due_date: self.due_date)
-    when "yearly"
-      #TODO
-      TaskInstance.new(due_date: self.due_date)
-    else
-      raise "Not valid"
+    when "Daily"
+      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : self.due_date) + (self.separation || 0))
+    when "Weekly"
+      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : self.due_date) + 7*self.separation )
+    when "Monthly"
+      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : self.due_date) +self.separation.months )
+    when "Yearly"
+      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : self.due_date) +self.separation.years )
     end
   end
+
 end

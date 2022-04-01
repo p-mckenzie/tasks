@@ -10,5 +10,5 @@
   <%= @task.description %>
 </p>
 
-<%= link_to 'Edit', edit_group_task_path(@task) %> |
-<%= link_to 'Back', group_path(id: @task.group) %>
+<%= link_to 'Edit', edit_group_task_path(@group, @task) %> |
+<%= link_to 'Back', group_path(@group) %>

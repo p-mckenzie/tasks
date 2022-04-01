@@ -38,9 +38,6 @@ ActiveRecord::Schema.define(version: 2022_03_18_160455) do
     t.boolean "is_recurring", default: false
     t.string "recurrence_type", default: ""
     t.integer "separation"
-    t.integer "day_of_week"
-    t.integer "day_of_month"
-    t.integer "month_of_year"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "group_id", null: false

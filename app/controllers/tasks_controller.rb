@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-  before_action :set_group, only: %i[ new edit show ]
+  before_action :set_group, only: %i[ new edit show update create ]
 
   # GET /tasks or /tasks.json
   def index
@@ -13,7 +13,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new(group: @group)
+    @task = Task.new(group_id: group_id)
   end
 
   # GET /tasks/1/edit
@@ -22,12 +22,13 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.create(task_params)
+    @task = Task.new(task_params)
+    @task.group_id = group_id
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to group_task_path(id: @task.id), notice: "Task was successfully created." }
-        format.json { render :show, status: :created, location: @task }
+        format.html { redirect_to group_path(@group), notice: "Task was successfully created." }
+        format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -65,11 +66,14 @@ class TasksController < ApplicationController
     end
 
     def set_group
-      @group = Group.find(params[:group_id])
+      @group = Group.find(group_id)
     end
 
-    # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :description, :due_date, :recurrence_type)
+      params.require(:task).permit(:title, :description, :due_date, :recurrence_type, :separation)
+    end
+
+    def group_id
+      params.permit(:group_id)[:group_id]
     end
 end

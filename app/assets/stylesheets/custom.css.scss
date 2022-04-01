@@ -1,5 +1,10 @@
 @import 'bootstrap/dist/css/bootstrap';
 
+.container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 h1, h2, h3 {
   margin-top:12px!important;
   margin-bottom:12px!important;

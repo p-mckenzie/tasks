@@ -3,17 +3,11 @@
     $("#task_recurrence_type").change(function () {
         const category = $(this).val().toLowerCase();
         if (category != "") {
-
-          $(".hide").children().show();
-          const toShow = '.'+category;
-
-          $('.hide').children().not($(toShow)).hide();
-          $('.always').show();
-
+          $(".toggle").show();
           $('.separation_unit').text(category.substr(0, category.length-2).replace('i', 'y')+'s');
-          $('.due_date').text("Starting on");
+          $('.due_date').text("First due on");
         } else {
-          $(".hide").children().hide();
+          $(".toggle").hide();
           $('.due_date').text("Due on");
         }
     });
@@ -53,27 +47,10 @@
     <%= form.date_field :due_date, :value => Time.now.strftime('%Y-%m-%d') %>
   </div>
   
-  <div class="hide">
-    <div class="field always" style="display:none">
-      <%= form.label "Repeat every" %>
-      <%= form.number_field :separation, :value => 1 %>
-      <%= form.label 'daily', :class => 'separation_unit' %>
-    </div>
-
-    <div class="field weekly" style="display:none">
-      <%= form.label :day_of_week %>
-      <%= form.select :day_of_week, options_for_select([["Monday", 1], ["Tuesday", 2], ["Wednesday", 3], ["Thursday", 4], ["Friday", 5], ["Saturday", 6], ["Sunday", 7]]), :class => 'genForm_dropBox' %>
-    </div>
-
-    <div class="field monthly yearly" style="display:none">
-      <%= form.label :day_of_month %>
-      <%= form.number_field :day_of_month, in: 1..31 %>
-    </div>
-
-    <div class="field yearly" style="display:none">
-      <%= form.label :month_of_year %>
-      <%= form.number_field :month_of_year, in: 1..12 %>
-    </div>
+  <div class="field toggle" style="display:none">
+    <%= form.label "Repeat every" %>
+    <%= form.number_field :separation, :value => 1 %>
+    <%= form.label 'daily', :class => 'separation_unit' %>
   </div>
 
   <div class="actions">
