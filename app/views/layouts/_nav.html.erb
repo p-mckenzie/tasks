@@ -22,7 +22,7 @@
               <%= fa_icon 'user' %> <%= current_user.full_name %>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to edit_user_path(current_user.id), class: 'dropdown-item' do %>
+              <%= link_to edit_user_registration_path(current_user), class: 'dropdown-item' do %>
                 <%= fa_icon 'edit' %> Edit profile
               <% end %>
               <a class="dropdown-item" href="#">Another action</a>

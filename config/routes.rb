@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :groups do
-    resources :tasks, except: [:index]
+    resources :tasks, except: [:index] do
+      resources :task_instances, only: [:edit]
+    end
   end
 
-  resources :users, only: [:edit]
+  resources :users, only: [:show]
 
   get '/join_group' => 'user_group_assignments#new'
   post '/join_group' => 'user_group_assignments#create'

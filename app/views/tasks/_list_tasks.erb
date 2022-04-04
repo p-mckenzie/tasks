@@ -17,9 +17,11 @@
           <td><%= link_to "#{instance.task.title}", group_task_path(instance.task) %></td>
           <td><%= instance.due_date %></td>
           <td><%= instance.task.recurrence_type %></td>
+          <td><%= instance.id %></td>
+          <td><%= instance.task.id %></td>
           <td><%= instance.user %></td>
           <td>
-            <%= form_for(edit_group_task_path(instance), :method => :put, :remote => true) do |f| %>
+            <%= form_for(edit_group_task_task_instance_path(instance.group, instance), :method => :put, :remote => true) do |f| %>
               <div class="field">
                 <%= f.check_box :complete, :onchange => ("this.form.submit()") %> <br />
               </div>
