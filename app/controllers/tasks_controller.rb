@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
-  before_action :set_group, only: %i[ new edit show update create ]
+  before_action :set_task, only: %i[ show edit update destroy complete_instance ]
+  before_action :set_group, only: %i[ new edit show update create complete_instance ]
 
   # GET /tasks or /tasks.json
   def index
@@ -18,6 +18,20 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+  end
+
+  def complete_instance
+    task_instance = @task.current_instance
+    task_instance.user = current_user
+    task_instance.complete = true
+
+    if task_instance.save
+      @task.next_task_instance
+    else
+      flash[:alert] = "Error completing task"
+    end
+
+    redirect_to task_instance.group
   end
 
   # POST /tasks or /tasks.json
@@ -62,7 +76,7 @@ class TasksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = Task.find(params[:id])
+      @task = Task.find(params.permit(:id)[:id])
     end
 
     def set_group

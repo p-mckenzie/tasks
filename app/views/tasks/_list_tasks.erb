@@ -7,27 +7,23 @@
         <th>Recurrence</th>
         <th>Assignee</th>
         <th>Done?</th>
-        <th>Edit</th>
       </tr>
     </thead>
 
     <tbody>
       <% tasks.each do |instance| %>
         <tr>
-          <td><%= link_to "#{instance.task.title}", group_task_path(instance.task) %></td>
+          <td><%= link_to "#{instance.task.title}", group_task_path(instance.group, instance.task) %></td>
           <td><%= instance.due_date %></td>
           <td><%= instance.task.recurrence_type %></td>
-          <td><%= instance.id %></td>
-          <td><%= instance.task.id %></td>
           <td><%= instance.user %></td>
           <td>
-            <%= form_for(edit_group_task_task_instance_path(instance.group, instance), :method => :put, :remote => true) do |f| %>
+            <%= form_with url: group_task_complete_path(instance.group, instance.task), method: :put do |f| %>
               <div class="field">
                 <%= f.check_box :complete, :onchange => ("this.form.submit()") %> <br />
               </div>
             <% end %>
           </td>
-          <td><%= link_to 'Edit', edit_group_task_path(group_id:instance.group.id, id:instance.task.id) %></td>
         </tr>
       <% end %>
     </tbody>

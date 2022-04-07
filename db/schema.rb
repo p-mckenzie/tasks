@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 2022_03_18_160455) do
     t.string "title", null: false
     t.text "description"
     t.date "due_date", null: false
-    t.boolean "is_recurring", default: false
     t.string "recurrence_type", default: ""
     t.integer "separation"
     t.datetime "created_at", precision: 6, null: false

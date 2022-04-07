@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :groups do
-    resources :tasks, except: [:index] do
-      resources :task_instances, only: [:edit]
-    end
+    resources :tasks, except: [:index, :edit]
+    put '/update_tasks/:id', to: 'tasks#complete_instance', as: :task_complete
   end
+
 
   resources :users, only: [:show]
 

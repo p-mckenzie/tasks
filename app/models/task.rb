@@ -5,16 +5,18 @@ class Task < ApplicationRecord
 
   before_save :next_task_instance
 
-  private
+  def is_recurring?
+    recurrence_type != ''
+  end
+
   def next_task_instance
-    if self.task_instances.empty? || (current_instance.completed and self.is_recurring)
-      holder = next_instance
-      self.task_instances << holder
+    if task_instances.empty? || (current_instance.complete and is_recurring?)
+      task_instances << next_instance
     end
   end
 
   def current_instance
-    self.task_instances.last
+    task_instances.last
   end
 
   def next_instance
@@ -22,13 +24,13 @@ class Task < ApplicationRecord
     when "" || nil
       TaskInstance.new(due_date: self.due_date)
     when "Daily"
-      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : self.due_date) + (self.separation || 0))
+      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : due_date) + (separation || 0))
     when "Weekly"
-      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : self.due_date) + 7*self.separation )
+      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : due_date) + 7*separation )
     when "Monthly"
-      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : self.due_date) +self.separation.months )
+      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : due_date) +separation.months )
     when "Yearly"
-      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : self.due_date) +self.separation.years )
+      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : due_date) +separation.years )
     end
   end
 
