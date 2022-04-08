@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :groups do
-    resources :tasks, except: [:index, :edit]
+    resources :tasks, except: [:index]
     put '/update_tasks/:id', to: 'tasks#complete_instance', as: :task_complete
   end
 

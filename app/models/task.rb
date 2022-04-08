@@ -19,6 +19,10 @@ class Task < ApplicationRecord
     task_instances.last
   end
 
+  def completed_instances
+    task_instances.filter(&:complete)
+  end
+
   def next_instance
     case self.recurrence_type
     when "" || nil

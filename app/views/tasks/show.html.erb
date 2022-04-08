@@ -1,14 +1,42 @@
-<p id="notice"><%= notice %></p>
+<% if !@task.current_instance&.complete %>
+  <div class="card">
+    <div class="card-header">
+      <%= @task.title %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= @task.description %>
+      </h5>
 
-<p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
+      <% if @task.current_instance.notes %>
+        <p class="card-text">
+          <%= @task.current_instance.notes %>
+        </p>
+      <% end %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
+      <p class="card-text">
+        <% if @task.current_instance.user %>
+          Current assignee: <%= @task.current_instance.user&.full_name %>
+        <% else %>
+          Currently unassigned
+        <% end %>
+      </p>
+      
+      
+      <% if @task.current_instance.user == current_user %>
+        <a href="#" class="btn btn-primary">Mark done</a>
+      <% else %>
+        <a href="#" class="btn btn-info">Assign to me</a>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>
+
+<% if @task.completed_instances.any? %>
+  <h3>Past occurrences:</h3>
+  <%= render 'list_instances', instances: @task.completed_instances %>
+<% end %>
 
 <%= link_to 'Edit', edit_group_task_path(@group, @task) %> |
 <%= link_to 'Back', group_path(@group) %>
