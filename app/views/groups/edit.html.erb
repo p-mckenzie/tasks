@@ -7,9 +7,12 @@
 
 <hr>
 
-<button type="button" class="btn btn-warning">
-  <%= link_to 'Delete group', @group, method: :delete, data: { confirm: 'Are you sure? This will also delete all related tasks & role assignments' } %>
-</button>
+<%= button_to 'Delete group', @group, method: :delete, 
+    data: { confirm: 'Are you sure? This will also delete all related tasks & role assignments' },
+    class:"btn btn-danger" %>
+
+<br/>
+<br/>
 
 <div>
   <%= link_to 'Show', @group %> |

@@ -15,10 +15,10 @@
         <tr>
           <td><%= group.title %></td>
           <td><%= group.description %></td>
-          <td><%= link_to 'Show', group %></td>
+          <td><%= button_to 'Show', group, class: 'btn btn-info', method: :get %></td>
           <td>
             <% if current_user.is_admin?(group) %>
-              <%= link_to 'Admin', edit_group_path(group) %>
+              <%= button_to 'Admin', edit_group_path(group), class: 'btn btn-warning', method: :get %>
             <% end %>
           </td>
         </tr>

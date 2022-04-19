@@ -4,9 +4,9 @@
 
 <hr/>
 
-<button type="button" class="btn btn-warning">
-  <%= link_to 'Delete task', group_task_path(@group, @task), method: :delete, data: { confirm: 'Are you sure? If this is a recurring task, all future recurrences will also be deleted.' } %>
-</button>
+<%= button_to 'Delete task', group_task_path(@group, @task), method: :delete, 
+      data: { confirm: 'Are you sure? If this is a recurring task, all future recurrences will also be deleted.' }, 
+      class:"btn btn-warning" %>
 
 <div>
   <%= link_to 'Show', group_task_path(@group, @task) %> |

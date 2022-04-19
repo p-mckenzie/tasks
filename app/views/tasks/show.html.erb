@@ -1,12 +1,12 @@
 <% if !@task.current_instance&.complete %>
-  <div class="card">
-    <div class="card-header">
-      <%= @task.title %>
-    </div>
+  <div class="card text-center">
     <div class="card-body">
       <h5 class="card-title">
-        <%= @task.description %>
+        <%= @task.title %>
       </h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        <%= @task.description %>
+      </h6>
 
       <% if @task.current_instance.notes %>
         <p class="card-text">
@@ -26,7 +26,7 @@
       <% if @task.current_instance.user == current_user %>
         <a href="#" class="btn btn-primary">Mark done</a>
       <% else %>
-        <a href="#" class="btn btn-info">Assign to me</a>
+        <%= button_to 'Assign to me', '/test', class:"btn btn-primary" %>
       <% end %>
 
     </div>

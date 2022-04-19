@@ -1,18 +1,21 @@
-<h1><%= @group.title %></h1>
-
-<p>
-  <%= @group.description %>
-</p>
+<div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= @group.title %>
+      </h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        <%= @group.description %>
+      </h6>
+      <% if current_user.is_admin?(@group) %>
+        <%= button_to 'Admin', edit_group_path(@group), class:"btn btn-warning", method: :get %>
+      <% end %>
+  </div>
+</div>
 
 <h2>Outstanding tasks:</h2>
 <%= render 'tasks/list_tasks', tasks: @group.current_tasks %>
 
+<%= button_to 'New Task', new_group_task_path(group_id: @group.id), class:"btn btn-primary", method: :get %>
 <br><br>
 
-<%= link_to 'New Task', new_group_task_path(group_id: @group.id) %>
-<br><br>
-
-<% if current_user.is_admin?(@group) %>
-  <%= link_to 'Admin', edit_group_path(@group) %> |
-<% end %>
-<%= link_to 'Back', groups_path %>
+<%= link_to 'Go back', groups_path %>
