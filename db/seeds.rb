@@ -17,3 +17,11 @@ UserGroupAssignment.create(user:User.last, group:Group.first)
 Group.first.tasks << Task.new(title: "Weekly recurring item", description: 'Do stuff and things', due_date: Date.today + 1, recurrence_type: "Weekly", separation: 1)
 Group.first.tasks << Task.new(title: "Daily recurring item", description: 'Foo bar baz', due_date: Date.today + 1, recurrence_type: "Daily", separation: 1)
 Group.first.tasks << Task.new(title: "Single instance item", description: 'Lorem ipsum dolor', due_date: Date.today + 1)
+
+Group.create(title: "Additional organization", description: "Also holds seed tasks and users")
+UserGroupAssignment.create(user:User.first, group:Group.last)
+UserGroupAssignment.create(user:User.last, group:Group.last, admin: true)
+
+Group.last.tasks << Task.new(title: "Take out trash", description: 'Do stuff and things', due_date: Date.today + 1, recurrence_type: "Weekly", separation: 1)
+Group.last.tasks << Task.new(title: "Cook dinner", description: 'Foo bar baz', due_date: Date.today + 1, recurrence_type: "Daily", separation: 1)
+Group.last.tasks << Task.new(title: "Book veterinarian appointment", description: 'Lorem ipsum dolor', due_date: Date.today + 1)
