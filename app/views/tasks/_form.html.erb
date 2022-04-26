@@ -38,6 +38,11 @@
   </div>
 
   <div class="field">
+    <%= form.label 'Assignee' %>
+    <%= form.collection_select :user, @group.users.order(:last_name),:id,:full_name, include_blank: true %>
+  </div>
+
+  <div class="field">
     <%= form.label :recurrence_type %>
     <%= form.select :recurrence_type, options_for_select([["None", ""], "Daily", "Weekly", "Monthly", "Yearly"]), :class => 'genForm_dropBox' %>
   </div>

@@ -1,6 +1,19 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy complete_instance ]
-  before_action :set_group, only: %i[ new edit show update create complete_instance ]
+  before_action :set_task, only: %i[ show edit update destroy complete_instance claim claim_all ]
+  before_action :set_group, only: %i[ new edit show update create complete_instance claim claim_all ]
+
+  def claim_all
+    @task.user = current_user
+    @task.save
+    redirect_to @task
+  end
+
+  def claim
+    task_instance = @task.current_instance
+    task_instance.user = current_user
+    task_instance.save
+    redirect_to @group
+  end
 
   # GET /tasks or /tasks.json
   def index

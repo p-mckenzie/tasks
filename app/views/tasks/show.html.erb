@@ -15,7 +15,10 @@
       <% end %>
 
       <p class="card-text">
-        <% if @task.current_instance.user %>
+
+        <% if @task.current_instance.user == current_user %>
+          Assigned to me
+        <% elsif @task.current_instance.user %>
           Current assignee: <%= @task.current_instance.user&.full_name %>
         <% else %>
           Currently unassigned
@@ -24,9 +27,9 @@
       
       
       <% if @task.current_instance.user == current_user %>
-        <a href="#" class="btn btn-primary">Mark done</a>
+        <%= button_to 'Mark done', group_task_complete_path(@task.group, @task), class:"btn btn-primary", method: :put %>
       <% else %>
-        <%= button_to 'Assign to me', '/test', class:"btn btn-primary" %>
+        <%= button_to 'Assign to me', group_task_claim_path, class:"btn btn-primary", method: :put %>
       <% end %>
 
     </div>

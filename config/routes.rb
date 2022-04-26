@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :groups do
     resources :tasks, except: [:index]
     put '/update_tasks/:id', to: 'tasks#complete_instance', as: :task_complete
+    put '/claim_task/:id', to: 'tasks#claim', as: :task_claim
+    put '/claim_all/:id', to: 'tasks#claim_all', as: :task_claim_all
   end
 
 

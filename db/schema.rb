@@ -40,7 +40,9 @@ ActiveRecord::Schema.define(version: 2022_03_18_160455) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "group_id", null: false
+    t.integer "user_id"
     t.index ["group_id"], name: "index_tasks_on_group_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "user_group_assignments", force: :cascade do |t|
@@ -72,6 +74,7 @@ ActiveRecord::Schema.define(version: 2022_03_18_160455) do
   add_foreign_key "task_instances", "users"
   add_foreign_key "tasks", "groups"
   add_foreign_key "tasks", "groups", on_delete: :cascade
+  add_foreign_key "tasks", "users"
   add_foreign_key "user_group_assignments", "groups"
   add_foreign_key "user_group_assignments", "groups", on_delete: :cascade
   add_foreign_key "user_group_assignments", "users"

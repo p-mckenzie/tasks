@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :group
+  belongs_to :user, optional: true
   has_many :task_instances
   validates :title, presence: true
 
@@ -11,7 +12,9 @@ class Task < ApplicationRecord
 
   def next_task_instance
     if task_instances.empty? || (current_instance.complete and is_recurring?)
-      task_instances << next_instance
+      new_task_instance = next_instance
+      new_task_instance.user = self.user
+      task_instances << new_task_instance
     end
   end
 
