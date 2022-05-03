@@ -38,11 +38,6 @@
   </div>
 
   <div class="field">
-    <%= form.label 'Assignee' %>
-    <%= form.collection_select :user, @group.users.order(:last_name),:id,:full_name, include_blank: true %>
-  </div>
-
-  <div class="field">
     <%= form.label :recurrence_type %>
     <%= form.select :recurrence_type, options_for_select([["None", ""], "Daily", "Weekly", "Monthly", "Yearly"]), :class => 'genForm_dropBox' %>
   </div>
@@ -57,6 +52,14 @@
     <%= form.number_field :separation, :value => 1 %>
     <%= form.label 'daily', :class => 'separation_unit' %>
   </div>
+
+  <details>
+    <summary>Advanced settings</summary>
+      <div class="field">
+        <%= form.label 'Assignee' %>
+        <%= form.collection_select :user_id, @group.users.order(:last_name), :id, :full_name, include_blank: true %>
+      </div>
+  </details>
 
   <div class="actions">
     <%= form.submit 'Submit', :class => 'btn btn-primary' %>

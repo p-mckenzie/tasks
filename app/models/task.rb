@@ -27,17 +27,24 @@ class Task < ApplicationRecord
   end
 
   def next_instance
+    next_due_date = (current_instance ? current_instance.due_date : due_date) + date_offset
+    TaskInstance.new(due_date: next_due_date, user: user)
+  end
+
+  private
+
+  def date_offset
     case self.recurrence_type
     when "" || nil
-      TaskInstance.new(due_date: self.due_date)
+      0
     when "Daily"
-      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : due_date) + (separation || 0))
+      (separation || 0)
     when "Weekly"
-      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : due_date) + 7*separation )
+      7*separation
     when "Monthly"
-      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : due_date) +separation.months )
+      separation.months
     when "Yearly"
-      TaskInstance.new(due_date: (current_instance ? current_instance.due_date : due_date) +separation.years )
+      separation.years
     end
   end
 

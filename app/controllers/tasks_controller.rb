@@ -97,7 +97,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :description, :due_date, :recurrence_type, :separation)
+      params.require(:task).permit(:title, :description, :due_date, :recurrence_type, :separation, :user_id)
     end
 
     def group_id

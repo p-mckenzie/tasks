@@ -16,7 +16,7 @@
           <td><%= link_to "#{instance.task.title}", group_task_path(instance.group, instance.task) %></td>
           <td><%= instance.due_date %></td>
           <td><%= instance.task.recurrence_type %></td>
-          <td><%= instance.user %></td>
+          <td><%= instance.user&.full_name %></td>
           <td>
             <%= form_with url: group_task_complete_path(instance.group, instance.task), method: :put do |f| %>
               <div class="field">
