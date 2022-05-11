@@ -13,7 +13,7 @@
 </div>
 
 <h2>Outstanding tasks:</h2>
-<%= render 'tasks/list_tasks', tasks: @group.current_tasks %>
+<%= render 'tasks/list_tasks', tasks: @group.current_tasks, show_group: false %>
 
 <%= button_to 'New Task', new_group_task_path(group_id: @group.id), class:"btn btn-primary", method: :get %>
 <br><br>

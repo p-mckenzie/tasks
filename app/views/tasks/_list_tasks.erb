@@ -2,6 +2,9 @@
   <table class="table">
     <thead>
       <tr>
+        <% if show_group %>
+          <th>Group</th>
+        <% end %>
         <th>Title</th>
         <th>Due date</th>
         <th>Recurrence</th>
@@ -13,6 +16,9 @@
     <tbody>
       <% tasks.each do |instance| %>
         <tr>
+        <% if show_group %>
+          <th><%= instance.group.title %></th>
+        <% end %>
           <td><%= link_to "#{instance.task.title}", group_task_path(instance.group, instance.task) %></td>
           <td><%= instance.due_date %></td>
           <td><%= instance.task.recurrence_type %></td>

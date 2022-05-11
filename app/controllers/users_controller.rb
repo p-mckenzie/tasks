@@ -18,4 +18,8 @@ class UsersController < ApplicationController
     end
   end
 
+  def my_tasks
+    @tasks = current_user.current_tasks
+  end
+
 end
