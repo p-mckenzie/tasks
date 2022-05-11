@@ -12,7 +12,7 @@ class TasksController < ApplicationController
     task_instance = @task.current_instance
     task_instance.user = current_user
     task_instance.save
-    redirect_to @group
+    redirect_to group_task_path(@group, @task)
   end
 
   # GET /tasks or /tasks.json
@@ -44,7 +44,7 @@ class TasksController < ApplicationController
       flash[:alert] = "Error completing task"
     end
 
-    redirect_to task_instance.group
+    redirect_to group_task_path(@group, @task)
   end
 
   # POST /tasks or /tasks.json
@@ -97,7 +97,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :description, :due_date, :recurrence_type, :separation, :user_id)
+      params.require(:task).permit(:title, :description, :due_date, :recurrence_type, :separation, :user_id, :visibility_delay)
     end
 
     def group_id

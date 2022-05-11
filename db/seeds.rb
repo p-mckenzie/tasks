@@ -6,22 +6,66 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Group.create(title: "Test organization", description: "Holds seed tasks and users")
+Group.create(title: "Smith family chores", description: "Space to keep track of recurring household tasks, like laundry & doctor's appointments")
 
-User.create(first_name: 'Paige', last_name: 'McKenzie', email: 'mp@test.com', password: 'testtest', password_confirmation: 'testtest')
-UserGroupAssignment.create(user:User.first, group:Group.first, admin: true)
+User.create(first_name: 'Jane', last_name: 'Smith', email: 'js@test.com', password: 'testtest', password_confirmation: 'testtest')
+UserGroupAssignment.create(user:User.last, group:Group.first, admin: true)
 
-User.create(first_name: 'John', last_name: 'Doe', email: 'jd@test.com', password: 'testtest', password_confirmation: 'testtest')
+User.create(first_name: 'Abigail', last_name: 'Smith', email: 'as@test.com', password: 'testtest', password_confirmation: 'testtest')
 UserGroupAssignment.create(user:User.last, group:Group.first)
 
-Group.first.tasks << Task.new(title: "Weekly recurring item", description: 'Do stuff and things', due_date: Date.today + 1, recurrence_type: "Weekly", separation: 1)
-Group.first.tasks << Task.new(title: "Daily recurring item", description: 'Foo bar baz', due_date: Date.today + 1, recurrence_type: "Daily", separation: 1)
-Group.first.tasks << Task.new(title: "Single instance item", description: 'Lorem ipsum dolor', due_date: Date.today + 1)
+Group.first.tasks << Task.new(title: "Take out the trash",
+                              description: 'Empty kitchen & bathroom trashcans, then place the trash & recycling bins on the street',
+                              due_date: Date.today + 1,
+                              recurrence_type: "Weekly",
+                              separation: 1,
+                            )
+Group.first.tasks << Task.new(title: "Launder towels",
+                              due_date: Date.today + 4,
+                              recurrence_type: "Weekly",
+                              separation: 2,
+                              user_id: 1,
+                            )
+Group.first.tasks << Task.new(title: "Launder sheets",
+                              due_date: Date.today + 11,
+                              recurrence_type: "Weekly",
+                              separation: 2,
+                              user_id: 2,
+                            )
+Group.first.tasks << Task.new(title: "Pick up medication from pharmacy",
+                                  description: 'Walgreens at 1123 Example Road',
+                                  due_date: Date.today + 1,
+                                  recurrence_type: "Monthly",
+                                  separation: 1,
+                            )
+Group.first.tasks << Task.new(title: "Call handyman for kitchen sink",
+                                  description: '1(800)111-0000, Bob Example',
+                                  due_date: Date.today + 1,
+                            )
+Group.first.tasks << Task.new(title: "Book dentist appointment",
+                                  due_date: Date.today + 1.weeks,
+                                  recurrence_type: "Monthly",
+                                  separation: 6,
+                                  visibility_delay: 30,
+                            )
+Group.first.tasks << Task.new(title: "Plan graduation celebration",
+                                  due_date: Date.today + 1.months,
+                                  visibility_delay: 45,
+                            )
 
-Group.create(title: "Additional organization", description: "Also holds seed tasks and users")
+Group.create(title: "Petfinder dashboard project", description: "Open-source community effort to optimize pet adoptions in Example county")
 UserGroupAssignment.create(user:User.first, group:Group.last)
+
+User.create(first_name: 'Taylor', last_name: 'Sanchez', email: 'ts@test.com', password: 'testtest', password_confirmation: 'testtest')
 UserGroupAssignment.create(user:User.last, group:Group.last, admin: true)
 
-Group.last.tasks << Task.new(title: "Take out trash", description: 'Do stuff and things', due_date: Date.today + 1, recurrence_type: "Weekly", separation: 1)
-Group.last.tasks << Task.new(title: "Cook dinner", description: 'Foo bar baz', due_date: Date.today + 1, recurrence_type: "Daily", separation: 1)
-Group.last.tasks << Task.new(title: "Book veterinarian appointment", description: 'Lorem ipsum dolor', due_date: Date.today + 1)
+Group.last.tasks << Task.new(title: "Get API credentials",
+                              description: 'Read-only access - special permission may be required from maintenance team to prevent up the rate limit',
+                              due_date: Date.today + 9,
+                            )
+Group.last.tasks << Task.new(title: "Draft project update",
+                              description: 'What was accomplished this week? Next steps? Any blockers?',
+                              due_date: Date.today + 3,
+                              recurrence_type: "Weekly",
+                              separation: 2,
+                            )

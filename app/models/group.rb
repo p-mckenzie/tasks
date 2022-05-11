@@ -5,6 +5,6 @@ class Group < ApplicationRecord
   has_many :task_instances, through: :tasks, dependent: :delete_all
 
   def current_tasks
-    task_instances.filter {|task| !task.complete }.sort_by {|task| task.due_date }
+    task_instances.filter {|task| !task.complete & task.visible? }.sort_by {|task| task.due_date }
   end
 end

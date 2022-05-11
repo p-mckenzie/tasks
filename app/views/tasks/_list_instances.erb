@@ -13,7 +13,7 @@
         <tr>
           <td><%= instance.due_date %></td>
           <td><%= instance.user.full_name %></td>
-          <td><%= instance.updated_at %></td>
+          <td><%= instance.updated_at.to_date %></td>
         </tr>
       <% end %>
     </tbody>

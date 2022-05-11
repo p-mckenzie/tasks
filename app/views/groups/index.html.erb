@@ -1,31 +1,24 @@
 <h1>Groups</h1>
 
-<div class="table-responsive text-center">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
+<% @groups.each do |group| %>
+  <div class="card text-center mb-4">
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= group.title %>
+      </h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        <%= group.description %>
+      </h6>
 
-    <tbody>
-      <% @groups.each do |group| %>
-        <tr>
-          <td><%= group.title %></td>
-          <td><%= group.description %></td>
-          <td><%= button_to 'Show', group, class: 'btn btn-info', method: :get %></td>
-          <td>
-            <% if current_user.is_admin?(group) %>
-              <%= button_to 'Admin', edit_group_path(group), class: 'btn btn-warning', method: :get %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      <div class="btn-group">
+        <% if current_user.is_admin?(group) %>
+          <%= button_to 'Admin', edit_group_path(group), class:"btn btn-warning mr-2", method: :get %>
+        <% end %>
+        <%= button_to 'Show', group, class:"btn btn-success", method: :get %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <%= link_to 'Create a new group', new_group_path %>
 <br>

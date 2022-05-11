@@ -12,6 +12,10 @@
         }
     });
   });
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 </script>
 
 <%= form_with(model: task, url: group_tasks_path) do |form| %>
@@ -44,21 +48,36 @@
 
   <div class="field">
     <%= form.label 'Due on', :class => 'due_date' %>
-    <%= form.date_field :due_date, :value => Time.now.strftime('%Y-%m-%d') %>
+    <%= form.date_field :due_date, :value => (Time.now+1.days).strftime('%Y-%m-%d') %>
   </div>
   
   <div class="field toggle" style="display:none">
     <%= form.label "Repeat every" %>
     <%= form.number_field :separation, :value => 1 %>
-    <%= form.label 'daily', :class => 'separation_unit' %>
+    <%= form.label 'days', :class => 'separation_unit' %>
   </div>
 
   <details>
     <summary>Advanced settings</summary>
-      <div class="field">
-        <%= form.label 'Assignee' %>
-        <%= form.collection_select :user_id, @group.users.order(:last_name), :id, :full_name, include_blank: true %>
-      </div>
+    
+    <div class="field px-2"
+      data-toggle="tooltip" 
+      data-placement="right" 
+      title="All task instances will be auto-assigned to this user. Individual instances can be customized."
+      style="width:max-content">
+        <%= form.label 'Default assignee' %>
+      <%= form.collection_select :user_id, @group.users.order(:last_name), :id, :full_name, include_blank: true %>
+    </div>
+
+    <div class="field px-2"
+        data-toggle="tooltip" 
+        data-placement="right" 
+        title="For recurring tasks where you only want a reminder a few days in advance - for example, a monthly recurring task you only want to be reminded of for the 5 days before it's due"
+        style="width:max-content">
+        <%= form.label 'Hide until' %>
+      <%= form.number_field :visibility_delay, :default => nil %>
+      days
+    </div>
   </details>
 
   <div class="actions">

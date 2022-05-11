@@ -1,40 +1,60 @@
-<% if !@task.current_instance&.complete %>
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= @task.title %>
-      </h5>
-      <h6 class="card-subtitle mb-2 text-muted">
-        <%= @task.description %>
-      </h6>
-
+<div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= @task.title %>
+    </h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <%= @task.description %>
+    </h6>
+    <% if !@task.current_instance&.complete %>
+    
       <% if @task.current_instance.notes %>
         <p class="card-text">
           <%= @task.current_instance.notes %>
         </p>
       <% end %>
 
-      <p class="card-text">
-
+      <p class="card-text mb-2">
         <% if @task.current_instance.user == current_user %>
           Assigned to me
         <% elsif @task.current_instance.user %>
           Current assignee: <%= @task.current_instance.user&.full_name %>
-        <% else %>
-          Currently unassigned
         <% end %>
       </p>
-      
+
+      <p class="card-text mb-2">
+        Due on: <%= @task.current_instance.due_date %>
+      </p>
       
       <% if @task.current_instance.user == current_user %>
-        <%= button_to 'Mark done', group_task_complete_path(@task.group, @task), class:"btn btn-primary", method: :put %>
+        <%= button_to 'Mark done', group_task_complete_path(@task.group, @task), class:"btn btn-success", method: :put %>
       <% else %>
         <%= button_to 'Assign to me', group_task_claim_path, class:"btn btn-primary", method: :put %>
       <% end %>
 
-    </div>
+    <% end %>
+    <% if @task.is_recurring? %>
+      <footer class="card-footer text-muted mt-3">
+        <h6 class="card-subtitle mb-2 text-muted">
+          Recurs <%= @task.recurrence_type %>
+        </h6>
+
+        <p class="card-text">
+          <% if @task.user == current_user %>
+            Assigned to me by default
+          <% elsif @task.user %>
+            Default assignee: <%= @task.current_instance.user&.full_name %>
+          <% end %>
+        </p>
+        
+        <% if @task.user.nil? %>
+          <%= button_to 'Assign all to me', group_task_claim_all_path, class:"btn btn-secondary", method: :put %>
+        <% end %>
+
+      </footer>
+    <% end %>
   </div>
-<% end %>
+</div>
 
 <% if @task.completed_instances.any? %>
   <h3>Past occurrences:</h3>
