@@ -11,8 +11,10 @@ class Task < ApplicationRecord
   end
 
   def next_task_instance
-    if task_instances.empty? || (current_instance.complete and is_recurring?)
-      new_task_instance = next_instance
+    new_task_instance = next_instance
+    if (repeat_until ? (next_task_instance.due_date > repeat_until) : false) || (quantity ? (completed_instances.count >= quantity) : false)
+      return
+    else
       new_task_instance.user = self.user
       task_instances << new_task_instance
     end
@@ -23,15 +25,15 @@ class Task < ApplicationRecord
   end
 
   def completed_instances
-    task_instances.filter(&:complete)
+    task_instances.filter(&:complete).sort_by(&:due_date).reverse!
   end
+
+  private
 
   def next_instance
     next_due_date = (current_instance ? current_instance.due_date : due_date) + date_offset
     TaskInstance.new(due_date: next_due_date, user: user)
   end
-
-  private
 
   def date_offset
     case self.recurrence_type

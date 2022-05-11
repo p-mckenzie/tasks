@@ -42,19 +42,30 @@ $(function () {
   </div>
 
   <div class="field">
-    <%= form.label :recurrence_type %>
-    <%= form.select :recurrence_type, options_for_select([["None", ""], "Daily", "Weekly", "Monthly", "Yearly"]), :class => 'genForm_dropBox' %>
+    <%= form.label 'Due on', :class => 'due_date' %>
+    <%= form.date_field :due_date, :value => (Time.now+1.days).strftime('%Y-%m-%d') %>
   </div>
 
   <div class="field">
-    <%= form.label 'Due on', :class => 'due_date' %>
-    <%= form.date_field :due_date, :value => (Time.now+1.days).strftime('%Y-%m-%d') %>
+    <%= form.label :recurrence_type %>
+    <%= form.select :recurrence_type, options_for_select([["None", ""], "Daily", "Weekly", "Monthly", "Yearly"]), :class => 'genForm_dropBox' %>
   </div>
   
   <div class="field toggle" style="display:none">
     <%= form.label "Repeat every" %>
     <%= form.number_field :separation, :value => 1 %>
     <%= form.label 'days', :class => 'separation_unit' %>
+  </div>
+  
+  <div class="field toggle pl-2" style="display:none">
+    <%= form.label "(Optional) Repeat until:" %>
+    <%= form.date_field :repeat_until %>
+  </div>
+  
+  <div class="field toggle pl-2" style="display:none">
+    <%= form.label "(Optional) Repeat for" %>
+    <%= form.number_field :quantity %>
+    <%= form.label(nil, 'occurrences') %>
   </div>
 
   <details>

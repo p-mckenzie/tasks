@@ -18,11 +18,7 @@
           <td><%= instance.task.recurrence_type %></td>
           <td><%= instance.user&.full_name %></td>
           <td>
-            <%= form_with url: group_task_complete_path(instance.group, instance.task), method: :put do |f| %>
-              <div class="field">
-                <%= f.check_box :complete, :onchange => ("this.form.submit()") %> <br />
-              </div>
-            <% end %>
+            <%= button_to 'Mark done', group_task_complete_path(instance.task.group, instance.task), class:"btn btn-success btn-sm", method: :put %>
           </td>
         </tr>
       <% end %>

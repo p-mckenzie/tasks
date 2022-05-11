@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2022_05_11_022524) do
     t.integer "group_id", null: false
     t.integer "user_id"
     t.integer "visibility_delay"
+    t.datetime "repeat_until"
+    t.integer "quantity"
     t.index ["group_id"], name: "index_tasks_on_group_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end

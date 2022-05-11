@@ -42,14 +42,13 @@
         <p class="card-text">
           <% if @task.user == current_user %>
             Assigned to me by default
-          <% elsif @task.user %>
-            Default assignee: <%= @task.current_instance.user&.full_name %>
+          <% else %>
+            <% if @task.user %>
+              Default assignee: <%= @task.current_instance.user&.full_name %>
+            <% end %>
+            <%= button_to 'Assign all to me', group_task_claim_all_path, class:"btn btn-secondary", method: :put %>
           <% end %>
         </p>
-        
-        <% if @task.user.nil? %>
-          <%= button_to 'Assign all to me', group_task_claim_all_path, class:"btn btn-secondary", method: :put %>
-        <% end %>
 
       </footer>
     <% end %>

@@ -12,7 +12,7 @@ class TasksController < ApplicationController
     task_instance = @task.current_instance
     task_instance.user = current_user
     task_instance.save
-    redirect_to group_task_path(@group, @task)
+    go_to_task
   end
 
   # GET /tasks or /tasks.json
@@ -37,14 +37,19 @@ class TasksController < ApplicationController
     task_instance = @task.current_instance
     task_instance.user = current_user
     task_instance.complete = true
+    byebug
 
-    if task_instance.save
-      @task.next_task_instance
-    else
+    unless task_instance.save
       flash[:alert] = "Error completing task"
+      go_to_task
+    end
+    byebug
+
+    if @task.is_recurring?
+      @task.next_task_instance
     end
 
-    redirect_to group_task_path(@group, @task)
+    go_to_task
   end
 
   # POST /tasks or /tasks.json
@@ -97,10 +102,14 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :description, :due_date, :recurrence_type, :separation, :user_id, :visibility_delay)
+      params.require(:task).permit(:title, :description, :due_date, :recurrence_type, :separation, :user_id, :visibility_delay, :quantity, :repeat_until)
     end
 
     def group_id
       params.permit(:group_id)[:group_id]
+    end
+
+    def go_to_task
+      redirect_to group_task_path(@group, @task)
     end
 end
