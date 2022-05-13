@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.4'
+gem 'rails', '~> 7.0.3'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -27,6 +27,9 @@ gem 'devise'
 # for UI
 gem "font-awesome-rails"
 gem 'jquery-rails'
+
+gem "sassc-rails"
+gem 'bootstrap', '~> 5.1.3'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
