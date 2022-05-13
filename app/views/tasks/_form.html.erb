@@ -56,19 +56,35 @@ $(function () {
     <%= form.number_field :separation, :value => 1 %>
     <%= form.label 'days', :class => 'separation_unit' %>
   </div>
-  
-  <div class="field toggle pl-2" style="display:none">
-    <%= form.label "(Optional) Repeat until:" %>
-    <%= form.date_field :repeat_until %>
-  </div>
-  
-  <div class="field toggle pl-2" style="display:none">
-    <%= form.label "(Optional) Repeat for" %>
-    <%= form.number_field :quantity %>
-    <%= form.label(nil, 'occurrences') %>
-  </div>
 
-  <details>
+  <details class="toggle py-2" style="display:none">
+    <summary>Optional recurrence settings</summary>
+    
+    <div class="field px-2"
+      data-toggle="tooltip" 
+      data-placement="right" 
+      title="Tasks will reoccur automatically until this date."
+      style="width:max-content">
+        <div class="field toggle pl-2">
+          <%= form.label "Repeat until" %>
+          <%= form.date_field :repeat_until %>
+        </div>
+    </div>
+
+    <div class="field px-2"
+        data-toggle="tooltip" 
+        data-placement="right" 
+        title="Tasks will reoccur automatically until this # of instances have occurred."
+        style="width:max-content">
+        <div class="field pl-2">
+          <%= form.label "Repeat for" %>
+          <%= form.number_field :quantity %>
+          <%= form.label(nil, 'occurrences') %>
+        </div>
+    </div>
+  </details>
+
+  <details class="py-2">
     <summary>Advanced settings</summary>
     
     <div class="field px-2"
@@ -83,7 +99,7 @@ $(function () {
     <div class="field px-2"
         data-toggle="tooltip" 
         data-placement="right" 
-        title="For recurring tasks where you only want a reminder a few days in advance - for example, a monthly recurring task you only want to be reminded of for the 5 days before it's due"
+        title="For far-away tasks where you only want a reminder a few days in advance - for example, an annual event you only need a few days' notice for"
         style="width:max-content">
         <%= form.label 'Hide until' %>
       <%= form.number_field :visibility_delay, :default => nil %>

@@ -1,12 +1,47 @@
-.container {
-  padding-top: 15px;
-  padding-bottom: 15px;
+// general
+body, p, ol, ul, td {
+  font-family: helvetica, sans-serif;
 }
 
-h1, h2, h3 {
-  margin-top:12px!important;
-  margin-bottom:12px!important;
+a:hover {
+  text-decoration: underline!important; }
+
+// forms & errors
+
+div.field,
+div.actions {
+  margin: 10px 0 10px 0; }
+
+div.field > label {
+  width: 10em;
 }
-td {
-  font-size: 1em!important;
+
+#notice {
+  color: green; }
+
+.field_with_errors {
+  padding: 2px;
+  background-color: #c00;
+  color: #fff;
+  display: table; }
+
+#error_explanation {
+  font-size: 1em;
+  border: solid #c00;
+  background-color: #f0f0f0;
+  width: fit-content;
+  margin-bottom:1em;
+ }
+
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 10px;
+  background-color: #c00;
+  color: #fff; 
 }
+
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square; }

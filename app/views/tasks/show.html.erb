@@ -57,7 +57,7 @@
 
 <% if @task.completed_instances.any? %>
   <h3>Past occurrences:</h3>
-  <%= render 'list_instances', instances: @task.completed_instances %>
+  <%= render 'past_instances', instances: @task.completed_instances %>
 <% end %>
 
 <%= link_to 'Edit', edit_group_task_path(@group, @task) %> |
