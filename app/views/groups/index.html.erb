@@ -11,7 +11,7 @@
       </h6>
 
       <div class="btn-group">
-        <% if current_user.is_admin?(group) %>
+        <% if current_user.admin?(group) %>
           <%= button_to 'Admin', edit_group_path(group), class:"btn btn-warning me-2", method: :get %>
         <% end %>
         <%= button_to 'Show', group, class:"btn btn-success", method: :get %>

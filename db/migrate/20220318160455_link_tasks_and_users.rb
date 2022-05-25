@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LinkTasksAndUsers < ActiveRecord::Migration[6.1]
   def change
     add_foreign_key :task_instances, :tasks, on_delete: :cascade

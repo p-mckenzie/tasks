@@ -14,7 +14,7 @@
         <tr>
           <td><%= assignment.user.full_name %></td>
           <td><%= assignment.user.email %></td>
-          <td><%= assignment.user.is_admin?(group) ? 'Admin' : 'Member'%></td>
+          <td><%= assignment.user.admin?(group) ? 'Admin' : 'Member'%></td>
           <td>
             <%= button_to 'Remove from group', leave_group_path(id: assignment.id), method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>

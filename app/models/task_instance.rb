@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TaskInstance < ApplicationRecord
   belongs_to :task
   has_one :group, through: :task

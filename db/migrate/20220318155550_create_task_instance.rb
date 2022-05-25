@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTaskInstance < ActiveRecord::Migration[6.1]
   def change
     create_table :task_instances do |t|
@@ -10,6 +12,5 @@ class CreateTaskInstance < ActiveRecord::Migration[6.1]
       t.references :task, null: false, foreign_key: true
       t.references :user, null: true, foreign_key: true
     end
-
   end
 end

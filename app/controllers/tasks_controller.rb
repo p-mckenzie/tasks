@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy complete_instance claim claim_all ]
-  before_action :set_group, only: %i[ new edit show update create complete_instance claim claim_all ]
+  before_action :set_task, only: %i[show edit update destroy complete_instance claim claim_all]
+  before_action :set_group, only: %i[new edit show update create complete_instance claim claim_all]
 
   def claim_all
     @task.user = current_user
@@ -21,8 +23,7 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1 or /tasks/1.json
-  def show
-  end
+  def show; end
 
   # GET /tasks/new
   def new
@@ -30,24 +31,19 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1/edit
-  def edit
-  end
+  def edit; end
 
   def complete_instance
     task_instance = @task.current_instance
     task_instance.user = current_user
     task_instance.complete = true
-    byebug
 
     unless task_instance.save
-      flash[:alert] = "Error completing task"
+      flash[:alert] = 'Error completing task'
       go_to_task
     end
-    byebug
 
-    if @task.is_recurring?
-      @task.next_task_instance
-    end
+    @task.next_task_instance if @task.recurring?
 
     go_to_task
   end
@@ -59,7 +55,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to group_path(@group), notice: "Task was successfully created." }
+        format.html { redirect_to group_path(@group), notice: 'Task was successfully created.' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -72,7 +68,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to group_task_path(id: @task.id), notice: "Task was successfully updated." }
+        format.html { redirect_to group_task_path(id: @task.id), notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -86,30 +82,32 @@ class TasksController < ApplicationController
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to group_path, notice: "Task was successfully destroyed." }
+      format.html { redirect_to group_path, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params.permit(:id)[:id])
-    end
 
-    def set_group
-      @group = Group.find(group_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task
+    @task = Task.find(params.permit(:id)[:id])
+  end
 
-    def task_params
-      params.require(:task).permit(:title, :description, :due_date, :recurrence_type, :separation, :user_id, :visibility_delay, :quantity, :repeat_until)
-    end
+  def set_group
+    @group = Group.find(group_id)
+  end
 
-    def group_id
-      params.permit(:group_id)[:group_id]
-    end
+  def task_params
+    params.require(:task).permit(:title, :description, :due_date, :recurrence_type, :separation, :user_id,
+                                 :visibility_delay, :quantity, :repeat_until)
+  end
 
-    def go_to_task
-      redirect_to group_task_path(@group, @task)
-    end
+  def group_id
+    params.permit(:group_id)[:group_id]
+  end
+
+  def go_to_task
+    redirect_to group_task_path(@group, @task)
+  end
 end

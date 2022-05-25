@@ -1,44 +1,38 @@
-class UserGroupAssignmentsController < ApplicationController
-  before_action :set_user_group_assignment, only: %i[ show edit update ]
+# frozen_string_literal: true
 
-  def new
-  end
+class UserGroupAssignmentsController < ApplicationController
+  before_action :set_user_group_assignment, only: %i[show edit update]
+  before_action :assign_from_params, only: %i[create]
+
+  def new; end
 
   def create
-    if params.key?(:group)
-      group = Group.find(params[:group][:id])
-      user = User.where({email: params[:group][:email]}).first
+    if @target_group.users.include?(@target_user)
+      flash[:alert] = "User is are already a member of #{@target_group.title}"
     else
-      group = Group.where('title = ?', params[:title]).first
-      user = current_user
+      assignment = UserGroupAssignment.new(user_id: @target_user.id, group_id: @target_group.id)
+      flash[:alert] = assignment.save ? "Successfully added to #{@target_group.title}" : 'Unable to create group membership'
     end
 
-    if group and user
-      if not user.groups.where({id: group.id}).empty?
-        flash[:alert] = "User is are already a member of #{group.title}"
-        redirect_to groups_path
-      else
-        assignment = UserGroupAssignment.new(user_id: user.id, group_id: group.id)
-        if assignment.save
-          flash[:alert] = "Successfully added to #{group.title}"
-          redirect_to groups_path
-        end
-      end
-    end
-    
-    if not flash[:alert]
-      flash[:alert] = 'Unable to create group membership'
-      redirect_to groups_path
-    end
+    redirect_to edit_group_path(@target_group)
   end
 
   def destroy
     assignment = UserGroupAssignment.find(params[:id])
-    if assignment.delete
-      flash[:alert] = 'Successfully removed user from group'
+    flash[:alert] = assignment.delete ? 'Successfully removed user from group' : 'Something went wrong'
+
+    redirect_to edit_group_path(assignment.group)
+  end
+
+  private
+
+  def assign_from_params
+    if params.key?(:group)
+      @target_group = Group.find(params[:group][:id])
+      @target_user = User.where({ email: params[:group][:email] }).first
     else
-      flash[:alert] = 'Something went wrong'
+      @target_group = Group.where('title = ?', params[:title]).first
+      @target_user = current_user
     end
-    redirect_to groups_path
   end
 end

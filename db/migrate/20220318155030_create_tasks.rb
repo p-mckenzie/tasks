@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTasks < ActiveRecord::Migration[6.1]
   def change
     create_table :tasks do |t|
@@ -5,7 +7,7 @@ class CreateTasks < ActiveRecord::Migration[6.1]
       t.text :description
       t.date :due_date, null: false
 
-      t.string :recurrence_type, default: ""
+      t.string :recurrence_type, default: ''
       t.integer :separation
 
       t.timestamps

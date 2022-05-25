@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  devise_for :users, :path => '', :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "register" }
+  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
 
   root to: 'users#my_tasks'
 
@@ -9,7 +11,6 @@ Rails.application.routes.draw do
     put '/claim_task/:id', to: 'tasks#claim', as: :task_claim
     put '/claim_all/:id', to: 'tasks#claim_all', as: :task_claim_all
   end
-
 
   resources :users, only: [:show]
 

@@ -33,7 +33,7 @@
       <% end %>
 
     <% end %>
-    <% if @task.is_recurring? %>
+    <% if @task.recurring? %>
       <footer class="card-footer text-muted mt-3">
         <h6 class="card-subtitle mb-2 text-muted">
           Recurs <%= @task.recurrence_type %>
