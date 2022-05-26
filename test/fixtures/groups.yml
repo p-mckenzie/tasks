@@ -3,7 +3,9 @@
 one:
   title: First organization
   description: Organization description
+  id: 1
 
 two:
   title: Second organization
   description: Foo bar baz
+  id: 2
