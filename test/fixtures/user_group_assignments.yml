@@ -4,3 +4,13 @@ one:
   user_id: 1
   group_id: 1
   admin: true
+
+two:
+  user_id: 1
+  group_id: 3
+  admin: false
+
+three:
+  user_id: 1
+  group_id: 2
+  admin: false

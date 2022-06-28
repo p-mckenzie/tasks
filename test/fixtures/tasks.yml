@@ -5,3 +5,19 @@ one:
   description: Description1
   due_date: 2022-01-01
   group_id: 1
+  id: 1
+
+two:
+  title: Task2
+  description: Description2
+  due_date: 2022-01-01
+  group_id: 1
+  id: 2
+
+three:
+  title: Task with visibility delay
+  description: Description3
+  due_date: 2022-01-01
+  group_id: 2
+  id: 3
+  visibility_delay: 30

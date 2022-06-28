@@ -9,3 +9,8 @@ two:
   title: Second organization
   description: Foo bar baz
   id: 2
+
+three:
+  title: Third organization
+  description: Foo bar baz
+  id: 3

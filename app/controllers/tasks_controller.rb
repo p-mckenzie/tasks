@@ -7,19 +7,18 @@ class TasksController < ApplicationController
   def claim_all
     @task.user = current_user
     @task.save
-    redirect_to @task
+
+    redirect_to group_task_path(@group, @task)
   end
 
   def claim
-    task_instance = @task.current_instance
-    task_instance.user = current_user
-    task_instance.save
-    go_to_task
-  end
+    unless @task.current_instance.complete
+      task_instance = @task.current_instance
+      task_instance.user = current_user
+      task_instance.save
+    end
 
-  # GET /tasks or /tasks.json
-  def index
-    @tasks = Task.all
+    redirect_to group_task_path(@group, @task)
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -45,7 +44,7 @@ class TasksController < ApplicationController
 
     @task.next_task_instance if @task.recurring?
 
-    go_to_task
+    redirect_to group_task_path(@group, @task)
   end
 
   # POST /tasks or /tasks.json
@@ -107,7 +106,4 @@ class TasksController < ApplicationController
     params.permit(:group_id)[:group_id]
   end
 
-  def go_to_task
-    redirect_to group_task_path(@group, @task)
-  end
 end
