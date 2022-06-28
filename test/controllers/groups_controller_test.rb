@@ -3,8 +3,11 @@
 require 'test_helper'
 
 class GroupsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @group = groups(:one)
+    sign_in users(:one)
   end
 
   test 'should get index' do
@@ -30,9 +33,21 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'non-member cannot access view page' do
+    new_group = groups(:two)
+    get edit_group_url(new_group)
+    assert_response :redirect
+  end
+
   test 'should get edit' do
     get edit_group_url(@group)
     assert_response :success
+  end
+
+  test 'non-admin cannot access edit page' do
+    new_group = groups(:three)
+    get edit_group_url(new_group)
+    assert_redirected_to group_url(new_group)
   end
 
   test 'should update group' do
@@ -46,5 +61,14 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to groups_url
+  end
+
+  test 'non-admin cannot destroy group' do
+    new_group = groups(:three)
+    assert_difference('Group.count', 0) do
+      delete group_url(new_group)
+    end
+
+    assert_redirected_to group_url(new_group)
   end
 end
