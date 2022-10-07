@@ -105,5 +105,4 @@ class TasksController < ApplicationController
   def group_id
     params.permit(:group_id)[:group_id]
   end
-
 end

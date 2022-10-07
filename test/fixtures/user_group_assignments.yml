@@ -14,3 +14,8 @@ three:
   user_id: 1
   group_id: 2
   admin: false
+
+four:
+  user_id: 1
+  group_id: 2
+  admin: false

@@ -1,0 +1,3 @@
+{
+    "*.rb": ["rubocop -a -c .rubocop.yml --fail-level E", "git add"]
+}

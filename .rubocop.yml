@@ -14,3 +14,6 @@ Metrics/MethodLength:
 
 Style/Documentation:
   Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false

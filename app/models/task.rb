@@ -13,7 +13,8 @@ class Task < ApplicationRecord
   end
 
   def next_task_instance
-    return unless (current_instance ? current_instance.complete : true)
+    return unless current_instance ? current_instance.complete : true
+
     new_task_instance = next_instance
     if (repeat_until ? (next_task_instance.due_date > repeat_until) : false) || (quantity ? (completed_instances.count >= quantity) : false)
       nil

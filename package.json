@@ -7,6 +7,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.4.3",
     "bootstrap": "4.3.1",
+    "eslint": "^7.32.0 || ^8.2.0",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
     "turbolinks": "^5.2.0",
@@ -15,6 +16,14 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "stylelint": "^14.13.0",
     "webpack-dev-server": "^3"
+  },
+  "scripts": {
+    "precommit": "lint-staged"
   }
 }
